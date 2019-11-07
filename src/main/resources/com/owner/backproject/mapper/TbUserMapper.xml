@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- SQL search localization is convenient without namespace -->
+<mapper namespace="com.owner.backproject.mapper.TbUserMapper">
+
+	<!-- The mapped entity fields correspond to database property: entity fields and column: database fields  -->
+	<resultMap id="TbUserMap" type="com.owner.backproject.domain.model.TbUser">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+	</resultMap>
+	
+	<!-- A column used for the common extraction of a select query -->
+	<sql id="TbUserColumns">
+		id,name,age
+	</sql>
+
+	<!-- Used to insert new table data -->
+	<insert id="insertTbUser" parameterType="com.owner.backproject.domain.model.TbUser">
+        INSERT INTO TB_USER (
+        	id ,
+        	name ,
+        	age 
+        ) VALUES (
+        	#{id,jdbcType=NUMERIC} ,
+        	#{name,jdbcType=VARCHAR} ,
+        	#{age,jdbcType=NUMERIC} 
+        )
+	</insert>
+    
+    <!-- To update and modify table data to provide the primary key id.-->
+	<update id="updateTbUser" parameterType="com.owner.backproject.domain.model.TbUser">
+        UPDATE TB_USER SET
+	        <if test="name != null and name != ''">
+        		name = #{name} ,
+        	</if>
+	        <if test="age != null and age != ''">
+        		age = #{age} ,
+        	</if>
+	        ID = ID
+        WHERE 
+	        id = #{id} 
+	</update>
+	
+	<!-- Used to update logic to delete data and provide the primary key id-->
+	<update id="updateTbUserDel" parameterType="map">
+        UPDATE TB_USER SET
+	        del_status = #{delStatus}
+        WHERE 
+	        id = #{id} 
+	</update>
+	
+    
+	<!-- Used for del batch deletion of data, providing an array of primary key ids -->
+    <delete id="deleteTbUserToManyId" parameterType="map">
+        DELETE FROM TB_USER
+        WHERE id in
+        <foreach item="itme" collection="ids" open="(" separator="," close=")">
+            #{itme}
+        </foreach>
+    </delete>
+    
+   	<!-- For del to delete data, provide primary key id -->
+    <delete id="deleteTbUserById" parameterType="map">
+        DELETE FROM TB_USER WHERE
+        id = #{id} 
+    </delete>
+    
+    <!-- Query the data according to the primary key id -->
+    <select id="getTbUserById" parameterType="map" resultMap="TbUserMap">
+		SELECT <include refid="TbUserColumns" />
+		    FROM TB_USER 
+	        WHERE 
+		        id = #{id} 
+	</select>
+    
+	<!-- The data entity query is conducted based on the incoming parameter condition -->
+    <select id="getTbUser" parameterType="map" resultMap="TbUserMap">
+		SELECT <include refid="TbUserColumns" />
+		    FROM TB_USER 
+	        <include refid="TbUserSqlWhere"/>    
+	</select>
+	
+	<!-- The data set List query is made based on the incoming parameters -->
+    <select id="listTbUser" parameterType="map" resultMap="TbUserMap">
+		SELECT <include refid="TbUserColumns" />
+		    FROM TB_USER 
+	        <include refid="TbUserSqlWhere"/>    
+	</select>
+    
+	<!-- Ordinary queries refer to query conditions -->
+	<sql id="TbUserSqlWhere">
+		<where>	   
+			1=1   				
+		    <if test="id != null">
+				AND id = #{id}
+		   </if>
+	       <if test="name != null and name != ''">
+				AND name = #{name}
+		   </if>
+		    <if test="age != null">
+				AND age = #{age}
+		   </if>
+		</where>
+	</sql>
+
+	
+</mapper>
+
