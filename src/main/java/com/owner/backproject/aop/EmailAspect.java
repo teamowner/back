@@ -1,11 +1,9 @@
 package com.owner.backproject.aop;
 
-import com.owner.backproject.domain.model.email.MailDTO;
 import com.owner.backproject.service.SendEmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
@@ -78,7 +75,7 @@ public class EmailAspect {
      * 后置最终通知,final增强，不管是抛出异常或者正常退出都会执行
      * @param jp
      */
-    @After("beforeNotify()")
+    /*@After("beforeNotify()")
     public void after(JoinPoint jp) throws MessagingException {
         MailDTO mailDTO = new MailDTO();
         mailDTO.setFrom(from);
@@ -93,5 +90,5 @@ public class EmailAspect {
 
         log.info("读取配置=========邮件发送完成");
 
-    }
+    }*/
 }

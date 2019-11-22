@@ -16,5 +16,7 @@ public class TbUser implements java.io.Serializable{
 	private int id;
 	private String name;
 	private int age;
+	private String password;
+	private String role;
 
 }

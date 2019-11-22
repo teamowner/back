@@ -11,11 +11,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="age" column="age"/>
+		<result property="password" column="password"/>
+		<result property="role" column="role"/>
 	</resultMap>
 	
 	<!-- A column used for the common extraction of a select query -->
 	<sql id="TbUserColumns">
-		id,name,age
+		id,name,age,password,role
 	</sql>
 
 	<!-- Used to insert new table data -->
@@ -23,11 +25,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         INSERT INTO TB_USER (
         	id ,
         	name ,
-        	age 
+        	age ,
+        	password ,
+        	role
         ) VALUES (
         	#{id,jdbcType=NUMERIC} ,
         	#{name,jdbcType=VARCHAR} ,
-        	#{age,jdbcType=NUMERIC} 
+        	#{age,jdbcType=NUMERIC} ,
+        	#{password,jdbcType=VARCHAR},
+        	#{role,jdbcType=VARCHAR}
         )
 	</insert>
     
@@ -40,6 +46,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	        <if test="age != null and age != ''">
         		age = #{age} ,
         	</if>
+			<if test="password != null and password != ''">
+				password = #{password} ,
+			</if>
+			<if test="role != null and role != ''">
+				role = #{role} ,
+			</if>
 	        ID = ID
         WHERE 
 	        id = #{id} 
@@ -104,6 +116,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		    <if test="age != null">
 				AND age = #{age}
 		   </if>
+			<if test="password != null">
+				AND password = #{password}
+			</if>
+			<if test="role != null">
+				AND role = #{role}
+			</if>
 		</where>
 	</sql>
 
