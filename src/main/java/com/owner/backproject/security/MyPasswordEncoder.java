@@ -1,3 +1,4 @@
+/*
 package com.owner.backproject.security;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,3 +15,4 @@ public class MyPasswordEncoder implements PasswordEncoder {
         return s.equals(charSequence.toString());
     }
 }
+*/

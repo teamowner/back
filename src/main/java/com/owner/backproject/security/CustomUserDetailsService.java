@@ -1,3 +1,4 @@
+/*
 package com.owner.backproject.security;
 
 import com.owner.backproject.domain.model.TbUser;
@@ -45,3 +46,4 @@ public class CustomUserDetailsService implements UserDetailsService {
                 userFromDatabase.getPassword(), grantedAuthorities);
     }
 }
+*/

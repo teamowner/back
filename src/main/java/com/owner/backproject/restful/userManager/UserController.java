@@ -19,6 +19,7 @@ public class UserController {
 	private UserService userService;
 
 	@ApiOperation("用户登录接口")
+	@CrossOrigin
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	public Result userLogin(@RequestBody TbUser tbUser) {
 
